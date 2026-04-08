@@ -2,9 +2,21 @@ package com.example.listlab;
 
 import java.util.Random;
 
+/**
+ * Класс для проведения тестов производительности двух реализаций списка:
+ * {@link MyArrayList} и {@link MyLinkedList}.
+ * 
+ * Измеряет время выполнения основных операций и выводит сравнительную таблицу.
+ */
 public class PerformanceTester 
 {
+	/**
+     * Количество операций.
+     */
     private static final int NUM_OPERATIONS = 10000;  
+    /**
+     * Размер.
+     */
     private static final int POPULATE_SIZE = 20000;
 
     public static void main(String[] args) 
@@ -39,7 +51,13 @@ public class PerformanceTester
                 testRemoveMiddle(new MyLinkedList<>()));
 
     }
-
+    /**
+     * Выводит результаты замера одного метода с сравнением производительности.
+     *
+     * @param method       название операции
+     * @param arrayTimeMs  время выполнения на MyArrayList (в миллисекундах)
+     * @param linkedTimeMs время выполнения на MyLinkedList (в миллисекундах)
+     */
     private static void printResult(String method, long arrayTimeMs, long linkedTimeMs) 
     {
         System.out.printf("%-28s | %8d | %12d | %12d | ", 
@@ -71,21 +89,30 @@ public class PerformanceTester
             System.out.println("—");
         }
     }
-
+    /**
+     * Замеряет время добавления элементов в конец списка.
+     * @param list список, на котором тестируем
+     */
     private static long testAddEnd(MyList<Integer> list) 
     {
         long start = System.nanoTime();
         for (int i = 0; i < NUM_OPERATIONS; i++) list.add(i);
         return (System.nanoTime() - start) / 1_000_000;
     }
-
+    /**
+     * Замеряет время добавления элементов в начало списка.
+     * @param list список, на котором тестируем
+     */
     private static long testAddBegin(MyList<Integer> list) 
     {
         long start = System.nanoTime();
         for (int i = 0; i < NUM_OPERATIONS; i++) list.add(0, i);
         return (System.nanoTime() - start) / 1_000_000;
     }
-
+    /**
+     * Замеряет время получения элементов по случайному индексу из середины списка.
+     * @param list список, на котором тестируем
+     */
     private static long testGetMiddle(MyList<Integer> list) 
     {
         for (int i = 0; i < POPULATE_SIZE; i++) list.add(i);
@@ -98,7 +125,10 @@ public class PerformanceTester
         }
         return (System.nanoTime() - start) / 1_000_000;
     }
-
+    /**
+     * Замеряет время удаления элементов из начала списка.
+     * @param list список, на котором тестируем
+     */
     private static long testRemoveBegin(MyList<Integer> list) 
     {
         for (int i = 0; i < POPULATE_SIZE; i++) list.add(i);
@@ -107,7 +137,10 @@ public class PerformanceTester
         for (int i = 0; i < NUM_OPERATIONS; i++) list.remove(0);
         return (System.nanoTime() - start) / 1_000_000;
     }
-
+    /**
+     * Замеряет время удаления элементов из конца списка.
+     * @param list список, на котором тестируем
+     */
     private static long testRemoveEnd(MyList<Integer> list) 
     {
         for (int i = 0; i < POPULATE_SIZE; i++) list.add(i);
@@ -115,7 +148,10 @@ public class PerformanceTester
         for (int i = 0; i < NUM_OPERATIONS; i++) list.remove(list.size() - 1);
         return (System.nanoTime() - start) / 1_000_000;
     }
-
+    /**
+     * Замеряет время удаления элементов из середины списка.
+     * @param list список, на котором тестируем
+     */
     private static long testRemoveMiddle(MyList<Integer> list) 
     {
         for (int i = 0; i < POPULATE_SIZE; i++) list.add(i);

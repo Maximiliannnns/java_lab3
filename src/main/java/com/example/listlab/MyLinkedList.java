@@ -1,12 +1,27 @@
 package com.example.listlab;
 
+/**
+ * Реализация двусвязного списка (аналог LinkedList).
+ * Каждый узел содержит ссылки на предыдущий и следующий элемент.
+ *
+ * @param <E> тип элементов в списке
+ */
 public class MyLinkedList<E> implements MyList<E> 
 {
 
     private static class Node<E> 
     {
+    	/**
+         * Сам элемент.
+         */
         E item;
+        /**
+         * Указатель на следующий элемент.
+         */
         Node<E> next;
+        /**
+         * Указатель на предыдущий элемент.
+         */
         Node<E> prev;
 
         Node(E item) 
@@ -14,17 +29,32 @@ public class MyLinkedList<E> implements MyList<E>
             this.item = item;
         }
     }
-
+    /**
+     * Первый элемент.
+     */
     private Node<E> head;
+    /**
+     * Хвост.
+     */
     private Node<E> tail;
+    /**
+     * Длинна.
+     */
     private int size;
 
+    /**
+     * Создаёт пустой двусвязный список.
+     */
     public MyLinkedList() 
     {
         head = tail = null;
         size = 0;
     }
-
+    /**
+     * Создаёт двусвязный список, содержащий один начальный элемент.
+     *
+     * @param firstElement первый элемент списка
+     */
     public MyLinkedList(E firstElement)
     {
         this();                    
@@ -36,7 +66,10 @@ public class MyLinkedList<E> implements MyList<E>
     {
         addLast(element);
     }
-
+    /**
+     * Добавляет элемент в конец списка.
+     * @param element последний элемент списка
+     */
     private void addLast(E element) 
     {
         Node<E> newNode = new Node<>(element);
@@ -78,7 +111,10 @@ public class MyLinkedList<E> implements MyList<E>
         current.prev = newNode;
         size++;
     }
-
+    /**
+     * Добавляет элемент в начало списка.
+     * @param element первый элемент списка
+     */
     private void addFirst(E element) 
     {
         Node<E> newNode = new Node<>(element);
@@ -96,7 +132,8 @@ public class MyLinkedList<E> implements MyList<E>
 
     @SuppressWarnings("unchecked")
     @Override
-    public E get(int index) {
+    public E get(int index) 
+    {
         if (index < 0 || index >= size) 
         {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
@@ -106,7 +143,8 @@ public class MyLinkedList<E> implements MyList<E>
 
     @SuppressWarnings("unchecked")
     @Override
-    public E remove(int index) {
+    public E remove(int index) 
+    {
         if (index < 0 || index >= size) 
         {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
@@ -132,7 +170,10 @@ public class MyLinkedList<E> implements MyList<E>
         return item;
     }
 
-    
+    /**
+     * Возвращает узел по индексу.
+     * Начинает поиск с ближайшего конца списка.
+     */
     private Node<E> getNode(int index) 
     {
         Node<E> current;
